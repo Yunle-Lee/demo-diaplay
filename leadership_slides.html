@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leadership Styles · Democratic Leadership</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&family=Noto+Sans+SC:wght@200;300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fafaf8; --paper-rgb:250,250,248;
+  --ink:#0a0a0a; --ink-rgb:10,10,10;
+  --grey-1:#f0f0ee; --grey-2:#d4d4d2; --grey-3:#737373;
+  --accent:#002FA7; --accent-rgb:0,47,167; --accent-on:#ffffff;
+  --text-primary:#0a0a0a; --text-secondary:#525252; --text-helper:#737373;
+  --text-placeholder:#a3a3a3; --text-on-color:#ffffff;
+  --border-subtle:#e0e0e0; --border-strong:#a3a3a3;
+  --sans:"Inter","Helvetica Neue","Helvetica","Arial",sans-serif;
+  --sans-zh:"PingFang SC","Noto Sans SC","Microsoft YaHei UI",sans-serif;
+  --mono:"JetBrains Mono","SF Mono","Consolas",monospace;
+  --sp-5:16px; --sp-6:24px; --sp-7:32px; --sp-8:40px; --sp-9:48px; --sp-10:64px; --sp-11:80px; --sp-12:96px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font-family:var(--sans),var(--sans-zh);-webkit-font-smoothing:antialiased}
+#deck{position:fixed;inset:0;width:1800vw;height:100vh;display:flex;transition:transform .8s cubic-bezier(.77,0,.175,1);z-index:10}
+.slide{width:100vw;height:100vh;flex:0 0 100vw;position:relative;padding:5.5vh 5vw 7vh;display:flex;flex-direction:column;overflow:hidden;background:var(--paper);color:var(--ink)}
+.slide.dark{background:var(--ink);color:var(--paper)}
+.slide.accent{background:var(--accent);color:var(--accent-on)}
+.slide.grey{background:var(--grey-1)}
+.h-hero{font-weight:200;font-size:min(7.4vw,13vh);line-height:.92;letter-spacing:-.04em}
+.h-xl{font-weight:200;font-size:min(5.2vw,9vh);line-height:1;letter-spacing:-.03em}
+.h-md{font-weight:300;font-size:min(2.6vw,5vh);line-height:1.18;letter-spacing:-.015em}
+.lead{font-weight:400;font-size:max(18px,1.45vw);line-height:1.45;opacity:.86}
+.body{font-weight:400;font-size:max(18px,1.08vw);line-height:1.6;opacity:.78}
+.body-sm{font-weight:400;font-size:max(16px,.92vw);line-height:1.55;opacity:.7}
+.kicker{font-family:var(--mono);font-size:14px;letter-spacing:.24em;text-transform:uppercase;opacity:.65;margin-bottom:2.4vh;display:flex;align-items:center;gap:.8em}
+.kicker::before{content:"";width:24px;height:1px;background:currentColor;opacity:.6}
+.kicker.accent{color:var(--accent);opacity:1;font-weight:600}
+.meta{font-family:var(--mono);font-size:max(14px,.82vw);letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+.chrome{display:flex;justify-content:space-between;font-family:var(--mono);font-size:14px;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-bottom:auto}
+.foot{margin-top:auto;display:flex;justify-content:space-between;font-family:var(--mono);font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.55;padding-top:2vh;border-top:1px solid rgba(127,127,127,.25)}
+.rule{width:100%;height:1px;background:currentColor;opacity:.18;margin:0}
+.rule.accent{background:var(--accent);opacity:1;height:2px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:3vw;flex:1;align-content:center}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4vw;flex:1;align-content:center}
+.grid-4{display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr);gap:3vh 3vw;flex:1;align-content:center}
+.grid-6{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:2.4vh 2vw;flex:1;align-content:center}
+.col{display:flex;flex-direction:column;gap:2vh}
+.row{display:flex;align-items:center;gap:2vw}
+.center{text-align:center;align-items:center;justify-content:center}
+.card-fill{background:var(--grey-1);padding:var(--sp-7) var(--sp-6)}
+.card-accent{background:var(--accent);color:var(--accent-on);padding:var(--sp-7) var(--sp-6)}
+.accent-block{background:var(--accent);color:var(--accent-on);padding:var(--sp-7) var(--sp-6)}
+.timeline-h{display:flex;gap:0;position:relative;flex:1;align-items:start;padding-top:3vh}
+.tl-h-node{flex:1;text-align:center;position:relative;z-index:1;padding:0 var(--sp-5)}
+.tl-h-node .dot{width:12px;height:12px;margin:22px auto var(--sp-5);position:relative;z-index:2;background:var(--border-subtle)}
+.tl-h-node:nth-child(2) .dot{background:var(--accent)}
+.tl-h-node:last-child .dot{background:var(--ink)}
+.dots{background-image:radial-gradient(currentColor 1px,transparent 1px);background-size:12px 12px;opacity:.14}
+.dots-fine{background-image:radial-gradient(currentColor .8px,transparent .8px);background-size:8px 8px;opacity:.1}
+.frame-img{overflow:hidden;position:relative;width:100%}
+.frame-img img{width:100%;height:100%;object-fit:cover}
+.frame-img.r-4x3{aspect-ratio:4/3;max-height:52vh}
+.big-quote{font-weight:200;font-size:min(4.2vw,7vh);line-height:1.25;letter-spacing:-.02em;text-align:center;max-width:80vw}
+.big-quote mark{background:rgba(0,47,167,.12);color:var(--accent);padding:0 .16em}
+#nav{position:fixed;left:50%;bottom:2vh;transform:translateX(-50%);z-index:30;display:flex;gap:10px}
+#nav .dot{width:6px;height:6px;background:rgba(0,0,0,.25);cursor:pointer;transition:all .25s;border:0;padding:0}
+#nav .dot.active{background:var(--accent);width:18px}
+.dark-bg #nav .dot{background:rgba(255,255,255,.3)}
+.dark-bg #nav .dot.active{background:var(--accent)}
+#hint{position:fixed;bottom:2.4vh;right:2.5vw;z-index:30;font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.35}
+.dark-bg #hint{color:#fff}
+.tag{display:inline-block;font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border:1px solid currentColor;opacity:.85}
+.tag.accent{background:var(--accent);color:var(--accent-on);border-color:transparent;opacity:1}
+</style>
+</head>
+<body>
+
+<div id="deck">
+
+<section class="slide dark center">
+  <div class="dots" style="position:absolute;inset:0;opacity:.08"></div>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:3vh;position:relative;z-index:1">
+    <div class="kicker accent" style="justify-content:center">Business Communication</div>
+    <h1 class="h-hero" style="text-align:center;font-size:min(8.4vw,15vh)">Leadership<br><span style="color:var(--accent)">Styles</span></h1>
+    <p class="lead" style="opacity:.6;margin-top:1vh">My Favorite Style, Supposed I Was a Leader</p>
+    <div class="meta" style="margin-top:3vh">2025-26 Semester 2</div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span>Outline</span><span>02 / 18</span></div>
+  <div class="col" style="flex:1;justify-content:center;gap:1.6vh;max-width:56vw;margin:0 auto">
+    <div class="h-md" style="margin-bottom:3vh">Today's Journey</div>
+    <div class="rule"></div>
+    <div class="row" style="gap:2vw"><span style="font-weight:700;font-size:max(20px,1.8vw);color:var(--accent)">01</span><span class="lead">Three Classic Leadership Styles</span></div>
+    <div class="rule"></div>
+    <div class="row" style="gap:2vw"><span style="font-weight:700;font-size:max(20px,1.8vw);color:var(--accent)">02</span><span class="lead">Why I Choose Democratic Leadership</span></div>
+    <div class="rule"></div>
+    <div class="row" style="gap:2vw"><span style="font-weight:700;font-size:max(20px,1.8vw);color:var(--accent)">03</span><span class="lead">Sundar Pichai — A Democratic Leader in Action</span></div>
+    <div class="rule"></div>
+    <div class="row" style="gap:2vw"><span style="font-weight:700;font-size:max(20px,1.8vw);color:var(--accent)">04</span><span class="lead">Theory Behind Democratic Leadership</span></div>
+    <div class="rule"></div>
+    <div class="row" style="gap:2vw"><span style="font-weight:700;font-size:max(20px,1.8vw);color:var(--accent)">05</span><span class="lead">Personal Reflection &amp; Discussion</span></div>
+  </div>
+  <div class="foot"><span>Leadership Styles</span><span class="nb">02</span></div>
+</section>
+
+<section class="slide dark center">
+  <div class="dots-fine" style="position:absolute;inset:0;opacity:.06"></div>
+  <div style="position:relative;z-index:1;max-width:72vw">
+    <div class="kicker accent" style="justify-content:center">The Question</div>
+    <p class="big-quote" style="font-weight:300;font-size:min(4.8vw,8vh)">"How you impact those around you depends on your <mark>leadership style</mark>."</p>
+    <div class="rule accent" style="width:80px;margin:4vh auto"></div>
+    <p class="lead" style="text-align:center;opacity:.55;margin-top:2vh">Every leader has a style. The question is: which one will <em>you</em> choose?</p>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span>Foundation</span><span>04 / 18</span></div>
+  <div class="row" style="gap:6vw;flex:1;align-items:center">
+    <div class="col" style="flex:4">
+      <div class="kicker accent">Kurt Lewin · 1939</div>
+      <h2 class="h-xl">Three Leadership<br>Styles Identified</h2>
+      <div class="rule accent" style="width:60px;margin:2vh 0"></div>
+      <p class="lead">German-American psychologist Kurt Lewin tasked schoolchildren with an arts and crafts project while observing their responses to different leadership approaches.</p>
+    </div>
+    <div class="col" style="flex:6;gap:2vh">
+      <div class="card-fill"><div class="row" style="gap:2vw"><span class="tag accent">01</span><span class="body" style="font-weight:600">Autocratic</span><span class="body-sm" style="opacity:.55">— "Do as you're told."</span></div></div>
+      <div class="card-fill"><div class="row" style="gap:2vw"><span class="tag accent">02</span><span class="body" style="font-weight:600">Democratic</span><span class="body-sm" style="opacity:.55">— "What do you think?"</span></div></div>
+      <div class="card-fill"><div class="row" style="gap:2vw"><span class="tag accent">03</span><span class="body" style="font-weight:600">Laissez-faire</span><span class="body-sm" style="opacity:.55">— "Let them do it."</span></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>University of Iowa Child Study</span><span class="nb">04</span></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span>Leadership Style 01</span><span>05 / 18</span></div>
+  <div class="row" style="gap:6vw;flex:1;align-items:center">
+    <div class="col" style="flex:5"><div class="kicker">Authoritarian</div><h2 class="h-xl">Autocratic<br>Leadership</h2><div class="rule" style="width:60px;margin:2vh 0"></div></div>
+    <div class="col" style="flex:7;gap:2vh">
+      <div class="card-fill"><p class="body">Top-down control — leader dictates strategy, policy, and tasks</p></div>
+      <div class="card-fill"><p class="body">One-way communication — instructions flow down, little to no input</p></div>
+      <div class="card-fill"><p class="body">High power distance — relies on position authority, not relationships</p></div>
+      <div class="body-sm" style="opacity:.5;margin-top:1vh"><strong>Works:</strong> Urgent situations. <strong>Risks:</strong> Micromanagement, dependency.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Examples: Martha Stewart · Bill Belichick</span><span class="nb">05</span></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span>Leadership Style 02</span><span>06 / 18</span></div>
+  <div class="row" style="gap:6vw;flex:1;align-items:center">
+    <div class="col" style="flex:5"><div class="kicker accent">Participative</div><h2 class="h-xl">Democratic<br>Leadership</h2><div class="rule accent" style="width:60px;margin:2vh 0"></div></div>
+    <div class="col" style="flex:7;gap:2vh">
+      <div class="card-fill"><p class="body">Gathers input from team members — everyone contributes</p></div>
+      <div class="card-fill"><p class="body">Two-way communication — "What do you think?"</p></div>
+      <div class="card-fill"><p class="body">Low power distance — approachable, connects personally</p></div>
+      <div class="body-sm" style="opacity:.5;margin-top:1vh"><strong>Works:</strong> Creative teams. <strong>Risks:</strong> Slower decisions.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Examples: Bill Gates · Nelson Mandela · Walt Disney</span><span class="nb">06</span></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span>Leadership Style 03</span><span>07 / 18</span></div>
+  <div class="row" style="gap:6vw;flex:1;align-items:center">
+    <div class="col" style="flex:5"><div class="kicker">Hands-off</div><h2 class="h-xl">Laissez-faire<br>Leadership</h2><div class="rule" style="width:60px;margin:2vh 0"></div></div>
+    <div class="col" style="flex:7;gap:2vh">
+      <div class="card-fill"><p class="body">Complete autonomy — followers make their own decisions</p></div>
+      <div class="card-fill"><p class="body">Leader provides resources but minimal supervision</p></div>
+      <div class="card-fill"><p class="body">Trust-based — effective when followers are highly skilled</p></div>
+      <div class="body-sm" style="opacity:.5;margin-top:1vh"><strong>Works:</strong> Expert teams. <strong>Risks:</strong> Ambiguity, lack of direction.</div>
+    </div>
+  </div>
+  <div class="foot"><span>Examples: Warren Buffett · Ronald Reagan</span><span class="nb">07</span></div>
+</section>
+
+<section class="slide grey">
+  <div class="chrome"><span>Comparison</span><span>08 / 18</span></div>
+  <div class="col" style="flex:1;justify-content:center">
+    <div class="kicker accent">At a Glance</div>
+    <h2 class="h-md" style="margin-bottom:4vh">Three Styles Compared</h2>
+    <div class="grid-6" style="gap:1.6vh 1.2vw">
+      <div class="card-fill" style="padding:var(--sp-5)"><div class="meta" style="color:var(--accent);margin-bottom:.8vh">AUTOCRATIC</div><div class="body-sm">Top-down · One-way<br>High power distance<br>Fast · Risk: micromanage</div></div>
+      <div class="card-accent" style="padding:var(--sp-5)"><div class="meta" style="margin-bottom:.8vh">DEMOCRATIC</div><div class="body-sm">Participative · Two-way<br>Low power distance<br>Buy-in · Risk: slow consensus</div></div>
+      <div class="card-fill" style="padding:var(--sp-5)"><div class="meta" style="color:var(--accent);margin-bottom:.8vh">LAISSEZ-FAIRE</div><div class="body-sm">Hands-off · Minimal<br>Flat structure<br>Autonomy · Risk: no direction</div></div>
+      <div class="card-fill" style="padding:var(--sp-5)"><div class="meta" style="color:var(--accent);margin-bottom:.8vh">POWER</div><div class="body-sm">Centralized. Position-based authority.</div></div>
+      <div class="card-accent" style="padding:var(--sp-5)"><div class="meta" style="margin-bottom:.8vh">POWER</div><div class="body-sm">Shared. Delegated. Relationship + position.</div></div>
+      <div class="card-fill" style="padding:var(--sp-5)"><div class="meta" style="color:var(--accent);margin-bottom:.8vh">POWER</div><div class="body-sm">Distributed. Minimal leader intervention.</div></div>
+    </div>
+  </div>
+  <div class="foot"><span>Based on Lewin, Lippitt &amp; White (1939)</span><span class="nb">08</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>Decision</span><span>09 / 18</span></div>
+  <div class="dots-fine" style="position:absolute;right:0;top:0;width:40vw;height:100%;opacity:.05"></div>
+  <div class="col" style="flex:1;justify-content:center;max-width:60vw">
+    <div class="kicker accent">My Choice</div>
+    <h2 class="h-xl" style="font-size:min(6.4vw,11vh);margin-bottom:3vh">I Choose <span style="color:var(--accent)">Democratic</span> Leadership</h2>
+    <div class="rule accent" style="width:80px;margin-bottom:4vh"></div>
+    <div class="col" style="gap:2.4vh">
+      <div><span style="font-weight:700;font-size:max(20px,1.8vw);color:var(--accent)">01</span>&nbsp;&nbsp;<span class="lead">Silicon Valley Culture — flat hierarchies, open collaboration, data-driven innovation</span></div>
+      <div><span style="font-weight:700;font-size:max(20px,1.8vw);color:var(--accent)">02</span>&nbsp;&nbsp;<span class="lead">Better Decisions — diverse perspectives produce smarter outcomes</span></div>
+      <div><span style="font-weight:700;font-size:max(20px,1.8vw);color:var(--accent)">03</span>&nbsp;&nbsp;<span class="lead">Empowered Teams — people commit to what they help create</span></div>
+    </div>
+  </div>
+  <div class="foot"><span>Democratic Leadership</span><span class="nb">09</span></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span>Case Study</span><span>10 / 18</span></div>
+  <div class="row" style="gap:5vw;flex:1;align-items:center">
+    <div style="flex-shrink:0;width:22vw;position:relative">
+      <div class="frame-img r-4x3" style="max-height:46vh">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Sundar_Pichai_-_2023_%28cropped%29.jpg" alt="Sundar Pichai" style="object-position:center 30%">
+      </div>
+      <div style="position:absolute;top:-8px;left:-8px;width:100%;height:100%;border:2px solid var(--accent);opacity:.3;pointer-events:none"></div>
+    </div>
+    <div class="col" style="flex:1;gap:2vh">
+      <span class="tag accent">CEO · Google &amp; Alphabet</span>
+      <h2 class="h-md">Sundar Pichai</h2>
+      <div class="rule accent" style="width:40px"></div>
+      <p class="body">Born in Chennai, India. Joined Google in 2004. Led Chrome, Chrome OS, and Android before becoming CEO in 2015.</p>
+      <p class="body">Known for his quiet confidence, collaborative approach, and ability to build consensus across fierce internal competition.</p>
+      <div class="card-fill" style="margin-top:1vh">
+        <p class="lead" style="font-style:italic;font-weight:300">"As a leader, a lot of your job is to make those people successful. It's less about trying to be successful yourself."</p>
+        <div class="meta" style="margin-top:1.6vh">— Sundar Pichai</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Sundar Pichai · Democratic Leadership in Practice</span><span class="nb">10</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>Story 01</span><span>11 / 18</span></div>
+  <div class="dots-fine" style="position:absolute;right:0;top:0;width:30vw;height:100%;opacity:.05"></div>
+  <div class="col" style="flex:1;justify-content:center">
+    <div class="kicker accent">Democratic Leadership in Action</div>
+    <h2 class="h-xl">The Master of<br>"Speak Last"</h2>
+    <div class="rule accent" style="width:60px;margin:3vh 0"></div>
+    <div class="timeline-h" style="padding-top:0;flex:0 0 auto;margin:3vh 0">
+      <div class="tl-h-node"><div class="dot"></div><p class="body" style="font-size:14px;opacity:.5">Colleague 1</p></div>
+      <div class="tl-h-node"><div class="dot"></div><p class="body" style="font-size:14px;opacity:.5">Colleague 2</p></div>
+      <div class="tl-h-node"><div class="dot"></div><p class="body" style="font-size:14px;opacity:.5">Colleague 3</p></div>
+      <div class="tl-h-node"><div class="dot" style="width:16px;height:16px;margin-top:20px"></div><p class="body" style="font-size:14px;font-weight:600;color:var(--accent)">Pichai listens</p></div>
+      <div class="tl-h-node"><div class="dot" style="width:20px;height:20px;margin-top:18px"></div><p class="body" style="font-size:14px;font-weight:700">Pichai speaks</p></div>
+    </div>
+    <p class="lead" style="max-width:68vw;opacity:.65">In heated executive meetings at Google, Pichai intentionally waits until everyone has exhausted their arguments. Only then does he speak — summarizing valid points from both sides and pitching a unified path forward.</p>
+  </div>
+  <div class="foot"><span>Democratic Leadership</span><span class="nb">11</span></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span>Story 02</span><span>12 / 18</span></div>
+  <div class="col" style="flex:1;justify-content:center">
+    <div class="kicker accent">Democratic Leadership in Action</div>
+    <h2 class="h-xl">How Chrome<br>Was Born</h2>
+    <div class="rule accent" style="width:60px;margin:3vh 0"></div>
+    <div class="timeline-h">
+      <div class="tl-h-node"><div class="dot"></div><h3 class="body" style="font-weight:700">Resistance</h3><p class="body-sm">CEO Eric Schmidt fiercely opposed building a browser — "an expensive distraction."</p></div>
+      <div class="tl-h-node"><div class="dot"></div><h3 class="body" style="font-weight:700">Data &amp; Prototypes</h3><p class="body-sm">Pichai gathered engineers, challenged assumptions, ran trials, built a flawless prototype.</p></div>
+      <div class="tl-h-node"><div class="dot"></div><h3 class="body" style="font-weight:700">Quiet Diplomacy</h3><p class="body-sm">Instead of top-down orders, collective data and patience gradually won over leadership.</p></div>
+    </div>
+    <div class="accent-block" style="text-align:center;margin-top:3vh">
+      <div style="font-weight:800;font-size:min(5vw,8vh);line-height:1">65%+</div>
+      <p class="body" style="opacity:.8;margin-top:.8vh">No ideological war. No forcing commands. Just evidence and patience. Today Chrome dominates the browser market.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Chrome · From Resistance to Dominance</span><span class="nb">12</span></div>
+</section>
+
+<section class="slide dark center">
+  <div class="dots" style="position:absolute;inset:0;opacity:.04"></div>
+  <div style="position:relative;z-index:1;max-width:72vw">
+    <div class="kicker accent" style="justify-content:center">Story 03</div>
+    <h2 class="h-xl" style="text-align:center;margin-bottom:4vh">"Let Others<br>Succeed"</h2>
+    <p class="big-quote" style="margin-bottom:6vh">"A leader's job is <mark>not</mark> to be the smartest person in the room. It's to <mark>remove barriers</mark> so smart people can do their best work."</p>
+    <div class="grid-3">
+      <div class="card-fill" style="text-align:center;background:rgba(255,255,255,.06)"><div style="font-weight:800;font-size:min(3vw,5vh);color:var(--accent);margin-bottom:1vh">🏗️</div><div class="body" style="font-weight:600;margin-bottom:.4vh">Flatten Hierarchy</div><div class="body-sm" style="opacity:.5">Reduce layers between teams and decisions.</div></div>
+      <div class="card-fill" style="text-align:center;background:rgba(255,255,255,.06)"><div style="font-weight:800;font-size:min(3vw,5vh);color:var(--accent);margin-bottom:1vh">🚧</div><div class="body" style="font-weight:600;margin-bottom:.4vh">Remove Roadblocks</div><div class="body-sm" style="opacity:.5">Clear obstacles so teams can move fast.</div></div>
+      <div class="card-fill" style="text-align:center;background:rgba(255,255,255,.06)"><div style="font-weight:800;font-size:min(3vw,5vh);color:var(--accent);margin-bottom:1vh">🔬</div><div class="body" style="font-weight:600;margin-bottom:.4vh">Grant Autonomy</div><div class="body-sm" style="opacity:.5">Let product teams run their own experiments.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="slide grey">
+  <div class="chrome"><span>Theory</span><span>14 / 18</span></div>
+  <div class="col" style="flex:1;justify-content:center">
+    <div class="kicker accent">Theory Meets Practice</div>
+    <h2 class="h-md" style="margin-bottom:4vh">What Makes Democratic<br>Leadership Work</h2>
+    <div class="grid-4">
+      <div class="card-fill"><div style="font-weight:700;font-size:max(18px,1.3vw);color:var(--accent);margin-bottom:1vh">Low Power Distance</div><p class="body-sm">The gap between leader and followers feels minimal. Democratic leaders are approachable and connect personally.</p></div>
+      <div class="card-fill"><div style="font-weight:700;font-size:max(18px,1.3vw);color:var(--accent);margin-bottom:1vh">Two-Way Communication</div><p class="body-sm">Information flows both ways. Leaders seek input before deciding — "Here's what I'm thinking, what do you think?"</p></div>
+      <div class="card-fill"><div style="font-weight:700;font-size:max(18px,1.3vw);color:var(--accent);margin-bottom:1vh">Shared Decision-Making</div><p class="body-sm">Leaders still make the final call, but delegate when possible. Followers have a real stake in the outcomes.</p></div>
+      <div class="card-fill"><div style="font-weight:700;font-size:max(18px,1.3vw);color:var(--accent);margin-bottom:1vh">Accountability Remains</div><p class="body-sm">If a decision goes wrong, the democratic leader is still responsible. Authority shared, accountability never.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Democratic Leadership Theory</span><span class="nb">14</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>Analysis</span><span>15 / 18</span></div>
+  <div class="row" style="gap:5vw;flex:1;align-items:center">
+    <div class="col" style="flex:5"><div class="kicker accent">Strengths</div><h2 class="h-md" style="margin-bottom:3vh">Why It Works</h2>
+      <div class="col" style="gap:1.6vh">
+        <div class="card-fill" style="background:rgba(255,255,255,.05)"><p class="body">Higher employee morale and engagement</p></div>
+        <div class="card-fill" style="background:rgba(255,255,255,.05)"><p class="body">More creative and diverse solutions</p></div>
+        <div class="card-fill" style="background:rgba(255,255,255,.05)"><p class="body">Stronger team ownership and commitment</p></div>
+        <div class="card-fill" style="background:rgba(255,255,255,.05)"><p class="body">Develops future leaders through participation</p></div>
+      </div>
+    </div>
+    <div class="col" style="flex:5"><div class="kicker">Risks</div><h2 class="h-md" style="margin-bottom:3vh">When It Fails</h2>
+      <div class="col" style="gap:1.6vh">
+        <div class="card-fill" style="background:rgba(255,255,255,.05)"><p class="body">Decision paralysis — too many voices slow things down</p></div>
+        <div class="card-fill" style="background:rgba(255,255,255,.05)"><p class="body">Not all input is equal — unskilled teams struggle</p></div>
+        <div class="card-fill" style="background:rgba(255,255,255,.05)"><p class="body">Some may feel left out if their ideas aren't chosen</p></div>
+        <div class="card-fill" style="background:rgba(255,255,255,.05)"><p class="body">Requires strong facilitation skills from the leader</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Balance is Key</span><span class="nb">15</span></div>
+</section>
+
+<section class="slide">
+  <div class="chrome"><span>Reflection</span><span>16 / 18</span></div>
+  <div class="col center" style="flex:1;gap:4vh">
+    <div class="kicker accent" style="justify-content:center">Personal Reflection</div>
+    <h2 class="h-xl" style="text-align:center">If I Were a<br><span style="color:var(--accent)">Leader</span>...</h2>
+    <div class="rule accent" style="width:60px;margin:0 auto"></div>
+    <div class="grid-3" style="max-width:80vw;margin:0 auto">
+      <div class="card-fill" style="text-align:center"><div style="font-weight:900;font-size:min(5vw,8vh);color:var(--accent);opacity:.3;line-height:1">01</div><h3 class="body" style="font-weight:700;margin:1vh 0">Listen First,<br>Speak Last</h3><p class="body-sm">Like Pichai, let every voice be heard before I weigh in.</p></div>
+      <div class="card-fill" style="text-align:center"><div style="font-weight:900;font-size:min(5vw,8vh);color:var(--accent);opacity:.3;line-height:1">02</div><h3 class="body" style="font-weight:700;margin:1vh 0">Build with Data,<br>Not Authority</h3><p class="body-sm">Let prototypes and evidence persuade — not titles.</p></div>
+      <div class="card-fill" style="text-align:center"><div style="font-weight:900;font-size:min(5vw,8vh);color:var(--accent);opacity:.3;line-height:1">03</div><h3 class="body" style="font-weight:700;margin:1vh 0">Measure by<br>Team Growth</h3><p class="body-sm">My KPI: how many team members grew into leaders?</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>My Leadership Philosophy</span><span class="nb">16</span></div>
+</section>
+
+<section class="slide dark">
+  <div class="chrome"><span>Summary</span><span>17 / 18</span></div>
+  <div class="dots-fine" style="position:absolute;right:0;top:0;width:40vw;height:100%;opacity:.04"></div>
+  <div class="col" style="flex:1;justify-content:center;max-width:62vw">
+    <div class="kicker accent">Key Takeaways</div>
+    <h2 class="h-md" style="margin-bottom:4vh">What I Want You<br>to Remember</h2>
+    <div class="col" style="gap:2vh">
+      <div class="row" style="gap:2vw;align-items:baseline"><span style="font-weight:800;font-size:min(4vw,6vh);color:var(--accent);line-height:1">1</span><p class="lead">Three leadership styles exist — <strong>Autocratic, Democratic, Laissez-faire</strong> — each with distinct strengths and weaknesses.</p></div>
+      <div class="row" style="gap:2vw;align-items:baseline"><span style="font-weight:800;font-size:min(4vw,6vh);color:var(--accent);line-height:1">2</span><p class="lead"><strong>Democratic leadership</strong> empowers teams through participation, low power distance, and shared decision-making.</p></div>
+      <div class="row" style="gap:2vw;align-items:baseline"><span style="font-weight:800;font-size:min(4vw,6vh);color:var(--accent);line-height:1">3</span><p class="lead"><strong>Sundar Pichai</strong> proves it works at the highest level — Speak Last, Build with Data, Let Others Succeed.</p></div>
+      <div class="row" style="gap:2vw;align-items:baseline"><span style="font-weight:800;font-size:min(4vw,6vh);color:var(--accent);line-height:1">4</span><p class="lead">If I were a leader, I'd choose democratic — <strong>listen, empower, and measure success by team growth.</strong></p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Thank You for Listening</span><span class="nb">17</span></div>
+</section>
+
+<section class="slide accent center">
+  <div style="position:relative;z-index:1;max-width:72vw">
+    <div class="kicker" style="justify-content:center;color:var(--accent-on);opacity:.7">Discussion</div>
+    <h2 class="h-xl" style="text-align:center;margin-bottom:6vh;font-size:min(6vw,10vh)">Questions &amp;<br>Discussion</h2>
+    <div class="grid-2" style="gap:3vw;align-content:start;flex:0 0 auto">
+      <div style="background:rgba(255,255,255,.1);padding:var(--sp-7);text-align:left"><div style="font-weight:900;font-size:min(4vw,6vh);opacity:.25;line-height:1;margin-bottom:1vh">01</div><p class="lead" style="opacity:.9">What do you think is the <strong>biggest risk</strong> of democratic leadership, and how would you handle it as a leader?</p></div>
+      <div style="background:rgba(255,255,255,.1);padding:var(--sp-7);text-align:left"><div style="font-weight:900;font-size:min(4vw,6vh);opacity:.25;line-height:1;margin-bottom:1vh">02</div><p class="lead" style="opacity:.9">Think of a <strong>leader you admire</strong> — which leadership style do they use most, and what can we learn from them?</p></div>
+    </div>
+    <p class="h-md" style="text-align:center;margin-top:6vh;font-weight:500">Thank You!</p>
+  </div>
+</section>
+
+</div>
+
+<nav id="nav"></nav>
+<div id="hint">🖱 L-Click ← · R-Click → · B Static · ESC Index</div>
+
+<script>
+const deck=document.getElementById('deck');
+const slides=deck.querySelectorAll('.slide');
+const nav=document.getElementById('nav');
+let idx=0, total=slides.length, lock=false;
+deck.style.width=(total*100)+'vw';
+slides.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.className='dot'; b.setAttribute('aria-label','Page '+(i+1));
+  b.onclick=()=>go(i); nav.appendChild(b);
+});
+function go(n){
+  if(lock)return;
+  idx=Math.max(0,Math.min(total-1,n));
+  deck.style.transform=`translateX(${-idx*100}vw)`;
+  nav.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  const isDark=slides[idx].classList.contains('dark')||slides[idx].classList.contains('accent');
+  document.body.classList.toggle('dark-bg',isDark);
+  lock=true; setTimeout(()=>lock=false,700);
+}
+let overviewOn=false;
+const ov=document.createElement('div');
+ov.id='overview'; ov.style.cssText='position:fixed;inset:0;z-index:100;background:rgba(250,250,248,.97);display:none;overflow-y:auto;padding:4vh 4vw';
+document.body.appendChild(ov);
+function buildOverview(){
+  ov.innerHTML='';
+  const grid=document.createElement('div');
+  grid.style.cssText='display:grid;grid-template-columns:repeat(4,1fr);gap:2vh 1.6vw;max-width:90vw;margin:0 auto';
+  slides.forEach((s,i)=>{
+    const card=document.createElement('div');
+    card.style.cssText='cursor:pointer;overflow:hidden;border:2px solid '+(i===idx?'var(--accent)':'rgba(0,0,0,.12)');
+    const wrap=document.createElement('div');
+    wrap.style.cssText='width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;background:'+(s.classList.contains('dark')||s.classList.contains('accent')?'var(--ink)':'var(--paper)');
+    const clone=s.cloneNode(true);
+    clone.style.cssText='width:100vw;height:100vh;transform:scale('+(1/4.5)+');transform-origin:top left;position:absolute;top:0;left:0;pointer-events:none';
+    wrap.appendChild(clone);
+    const label=document.createElement('div');
+    label.style.cssText='padding:6px 10px;font-family:var(--mono);font-size:14px;letter-spacing:.14em;text-transform:uppercase;opacity:.7';
+    label.textContent=(i+1)+' / '+total; card.appendChild(wrap); card.appendChild(label);
+    card.onclick=()=>{toggleOverview();go(i)}; grid.appendChild(card);
+  }); ov.appendChild(grid);
+}
+function toggleOverview(){overviewOn=!overviewOn; overviewOn?(buildOverview(),ov.style.display='block'):(ov.style.display='none');}
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){e.preventDefault();toggleOverview();return;}
+  if(e.key&&e.key.toLowerCase()==='b'&&!e.metaKey&&!e.ctrlKey){e.preventDefault();return;}
+  if(overviewOn)return;
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){go(idx+1);return;}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){go(idx-1);return;}
+  if(e.key==='Home')go(0); if(e.key==='End')go(total-1);
+});
+let touchX=0;
+deck.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX});
+deck.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-touchX; if(Math.abs(dx)>60) go(dx<0?idx+1:idx-1)});
+let wc=0;
+deck.addEventListener('wheel',e=>{if(overviewOn)return; const n=Date.now(); if(n-wc<800)return; wc=n; if(Math.abs(e.deltaX)>30||Math.abs(e.deltaY)>30) go(e.deltaX>0||e.deltaY>0?idx+1:idx-1)},{passive:true});
+
+// Mouse button navigation — Left click = prev, Right click = next
+addEventListener('click',e=>{if(overviewOn)return;e.preventDefault();go(idx-1)});
+addEventListener('contextmenu',e=>{e.preventDefault();if(overviewOn)return;go(idx+1)});
+go(0);
+</script>
+</body>
+</html>
